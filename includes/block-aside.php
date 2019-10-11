@@ -5,7 +5,7 @@
 
 	<?php if (isset($_SESSION['usuario'])) : ?>
 		<div id="usuario-logueado" class="block-aside">
-			<h3>Bienvenido, <?= $_SESSION['usuario']['nombre'] . ' ' . $_SESSION['usuario']['apellido']; ?></h3>
+			<h3>Bienvenido, <?=$_SESSION['usuario']['nombre'] . ' ' . $_SESSION['usuario']['apellido'];?></h3>
 			<a href="close.php" class="boton">Agregar noticia</a>
 			<a href="close.php" class="boton">Crear categoria</a>
 			<a href="close.php" class="boton">Mis Datos</a>
@@ -65,6 +65,6 @@
 
 			<input type="submit" value="Registrar" />
 		</form>
-		<?php borrarError() ?>
+		<?php borrarError()?>
 	</div>
 </aside>

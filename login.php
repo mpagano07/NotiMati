@@ -1,6 +1,7 @@
 <?php
 
 require_once 'includes/conection.php';
+
 // datos del formulario
 if ($_POST) {
 
@@ -20,11 +21,15 @@ if ($_POST) {
         $usuario = mysqli_fetch_assoc($login);
         
         //comprobar la contraseña 
-        $verify = password_verify($password, $usuario['password']);
+        $verify = password_verify($password, $usuario[' ']);
 
         if ($verify) {
             //Utiliar una sesion para guardar los daros del usuario logueado 
-            $_SESSION['usuario'] = $usuario;            
+            $_SESSION['usuario'] = $usuario;  
+            
+            if(isset($_SESSION['error_login'])){
+                session_unset($_SESSION['error_login']);
+            }
 
         }else{
             //si algo falla enviar una sesion con el fallo 

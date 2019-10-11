@@ -54,7 +54,7 @@ if (isset($_POST)){
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>4]);
 
         //inserta el usuario en la base de datos
-        $sql = "INSERT INTO usuarios VALUES(null, '$nombre', '$apellido', '$email', '$password', CURDATE());";
+        $sql = "INSERT INTO usuarios VALUES(null, '$nombre', '$apellido', '$email', '$hash', CURDATE());";
         $guardar = mysqli_query($db, $sql);
 
         if ($guardar) {
