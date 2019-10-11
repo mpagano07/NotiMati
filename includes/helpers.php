@@ -2,12 +2,12 @@
 
 function mostrarError($errores, $campo)
 {
-    $alert = '';
+    $alerta = '';
     if (isset($errores[$campo]) && !empty($campo)) {
-        $alert = "<div class='alerta alerta-error'>" . $errores[$campo] . '</div>';
+        $alerta = "<div class='alerta alerta-error'>" . $errores[$campo] . '</div>';
     }
 
-    return $alert;
+    return $alerta;
 }
 
 function borrarError()

@@ -4,13 +4,15 @@ if (isset($_POST)){
 
     require_once 'includes/conection.php';
 
-    session_start();
+    if(isset($_SESSION)){
+        session_start();
+    }
 
     //valores del formulario 
-    $nombre   = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-    $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : false;
-    $email    = isset($_POST['email']) ? $_POST['email'] : false;
-    $password = isset($_POST['password']) ? $_POST['password'] : false;    
+    $nombre   = isset($_POST['nombre']) ? mysqli_real_escape_string($db, $_POST['nombre']) : false;
+    $apellido = isset($_POST['apellido']) ? mysqli_real_escape_string($db, $_POST['apellido']) : false;
+    $email    = isset($_POST['email']) ? mysqli_real_escape_string($db, trim($_POST['email'])) : false;
+    $password = isset($_POST['password']) ? mysqli_real_escape_string($db, $_POST['password']) : false;    
 
     // Array de errores
     $errores = array();
@@ -23,7 +25,7 @@ if (isset($_POST)){
         $errores['nombre'] = "El nombre no es valido";
     }
 
-    if(!empty(apellido) && !is_numeric(apellido) && !preg_match("/[0-9]/", apellido)){
+    if(!empty($apellido) && !is_numeric($apellido) && !preg_match("/[0-9]/", $apellido)){
         $apellido_valido = true;
      }else{
         $apellido_valido = false;
@@ -52,7 +54,7 @@ if (isset($_POST)){
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>4]);
 
         //inserta el usuario en la base de datos
-        $sql = "INSERT INTO usuarios VALUES (null, '$nombre',' $apellido', '$email', '$password', CURDATE());";
+        $sql = "INSERT INTO usuarios VALUES(null, '$nombre', '$apellido', '$email', '$password', CURDATE());";
         $guardar = mysqli_query($db, $sql);
 
         if ($guardar) {
