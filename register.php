@@ -4,10 +4,6 @@ if (isset($_POST)){
 
     require_once 'includes/conection.php';
 
-    if(isset($_SESSION)){
-        session_start();
-    }
-
     //valores del formulario 
     $nombre   = isset($_POST['nombre']) ? mysqli_real_escape_string($db, $_POST['nombre']) : false;
     $apellido = isset($_POST['apellido']) ? mysqli_real_escape_string($db, $_POST['apellido']) : false;
@@ -62,8 +58,6 @@ if (isset($_POST)){
         }else{
             $_SESSION['errores']['general'] = "Fallo a guardar el usuario";
         }
-
-
 
     }else{
         $_SESSION['errores'] = $errores;

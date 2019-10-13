@@ -3,10 +3,10 @@
 require_once 'includes/conection.php';
 
 // datos del formulario
-if ($_POST) {
+if (isset($_POST)) {
 
-    //borra sesion anterior
-    if (isset($_SESSION['error_login'])) {
+    // borra sesion anterior
+    if (!isset($_SESSION['error_login'])) {
         session_unset($_SESSION['error_login']);
     }
 
@@ -21,11 +21,11 @@ if ($_POST) {
         $usuario = mysqli_fetch_assoc($login);
         
         //comprobar la contraseña 
-        $verify = password_verify($password, $usuario[' ']);
+        $verify = password_verify($password, $usuario['']);
 
         if ($verify) {
             //Utiliar una sesion para guardar los daros del usuario logueado 
-            $_SESSION['usuario'] = $usuario;  
+            $_SESSION['usuarios'] = $usuario;  
             
             if(isset($_SESSION['error_login'])){
                 session_unset($_SESSION['error_login']);
