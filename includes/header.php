@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Alto Blog</title>
+    <title>Altos noticias</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
@@ -16,7 +16,7 @@
         <!--LOGO-->
         <div id="logo">
             <a href="index.pgp">
-                <h1>blog</h1>
+                <h1>Noticias</h1>
             </a>
         </div>
 
