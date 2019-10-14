@@ -9,12 +9,20 @@ if (isset($_POST)) {
     if (!isset($_SESSION['error_login'])) {
         session_unset($_SESSION['error_login']);
     }
+    extract($_POST);
+    // $email    = trim($_POST['email']);
+    // $password = $_POST['password'];
 
-    $email    = trim($_POST['email']);
-    $password = $_POST['password'];
 
     //consulta para comprobar las credenciales del usuario
-    $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+        if($res = mysqli_query($db, "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password'")){
+            $row=mysqli_fetch_array($res);
+            $user = $row['nombre'];
+            
+            $_SESSION['nusuario'] = $user ;
+            $_SESSION['usuarios'] = 1;
+        }    
+  
     $login = mysqli_query($db, $sql);
 
     if ($login && mysqli_num_rows($login) == 1) {

@@ -2,8 +2,8 @@
 <aside id="sidebar">
 	<?php if (isset($_SESSION['usuarios'])) : ?>
 		<div id="usuario-logueado" class="block-aside">
-			<h3>Bienvenido, <?= $_SESSION['usuarios']['nombre']. ' '.$_SESSION['usuarios']['apellido']; ?></h3>
-			<a href="close.php" class="boton">Agregar noticia</a>
+			<h3>Bienvenido, <?= $_SESSION['nusuario']?></h3>
+			<a href="noticias.php" class="boton">Agregar noticia</a>
 			<a href="categoria.php" class="boton">Crear categoria</a>
 			<a href="close.php" class="boton">Mis Datos</a>
 			<a href="close.php" class="boton">Cerrar sesion</a>

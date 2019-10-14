@@ -1,18 +1,16 @@
-<!--header-->
 <?php require_once 'includes/header.php'; ?>
-
-<!--barra lateral-->
 <?php require_once 'includes/block-aside.php'; ?>
+<?php require_once 'includes/conection.php'; ?>
 
 <!--caja principal-->
 <div id="principal">
 	<h1>Ultimas Noticias</h1>
 
 	<?php
-	$entradas = ultimasEntradas($db);
-	if (!empty($entradas)):
-		while ($entradas = mysql_fetch_assoc($entradas)) :
-			?>
+		$entradas = ultimasEntradas($db);
+		if(!empty($entradas)):
+			// while($entradas = mysql_fetch_assoc($entrada)) :
+	?>
 			<article class="entrada">
 				<a href="">
 					<h2><?=$entrada['titulo']?></h2>
@@ -23,8 +21,8 @@
 				</a>
 			</article>
 	<?php
-		endwhile;
-	endif;
+			// endwhile;
+		endif;
 	?>
 
 	<div id=ver-todas>

@@ -36,7 +36,7 @@
                         </li>
                 <?php
                     endwhile;
-                endif;
+                    endif;
                 ?>
             </ul>
         </nav>
