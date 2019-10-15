@@ -17,15 +17,15 @@
 
     <form action="actualizar-usuario.php" method="POST">
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre"/>
+        <input type="text" name="nombre" value="<?=$_SESSION['usuario']['nombre']; ?>" />
         <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'nombre') : ''; ?>
 
         <label for="apellido">Apellido</label>
-        <input type="text" name="apellido"/>
+        <input type="text" name="apellido" value="<?=$_SESSION['usuario']['apellido']; ?>" />
         <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'apellido') : ''; ?>
 
         <label for="email">Email</label>
-        <input type="email" name="email"/>
+        <input type="email" name="email" value="<?=$_SESSION['usuario']['email']; ?>" />
         <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'email') : ''; ?>
 
         <input type="submit" name="submit" value="Actualizar" />

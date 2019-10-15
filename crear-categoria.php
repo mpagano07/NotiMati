@@ -10,15 +10,11 @@
     </p>
     <br>
     <form action="guardar-categoria.php" method="POST">
-        <label>Nombre de la categoria:</label>
+        <label for="nombre">Nombre de la categoria:</label>
         <input type="text" name="nombre" />
 
         <input type="submit" value="Guardar" />
     </form>
-
-	<div id=ver-todas>
-		<a href="">Ver todas las entradas</a>
-	</div>
 
 </div>
 

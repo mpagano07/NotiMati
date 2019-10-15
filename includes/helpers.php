@@ -1,4 +1,5 @@
 <?php
+require_once 'conection.php';
 
 function mostrarError($errores, $campo)
 {
@@ -46,7 +47,7 @@ function conseguirCategorias($conection)
 
 function conseguirCategoria($conection, $id)
 { 
-    $sql = "SELECT * FROM categorias WHERE  id = $id;";
+    $sql = "SELECT * FROM categorias WHERE id = $id;";
     $categorias = mysqli_query($conection, $sql);
     $result = array();
 
@@ -56,14 +57,33 @@ function conseguirCategoria($conection, $id)
     return $result;
 }
 
-function conseguirEntradas($conection, $limit = null)
+function conseguirEntrada($conection, $id)
+{ 
+    $sql = "SELECT e.*, c.nombre AS 'categoria' FROM entradas e 
+            INNER JOIN categorias c ON e.categoria_id = c.id 
+            WHERE e.id = $id ";
+    $entrada = mysqli_query($conection, $sql);
+    $result = array();
+
+    if($entrada && mysqli_num_rows($entrada) >= 1){
+        $result = mysqli_fetch_assoc($entrada);
+    }
+    return $result;
+}
+
+function conseguirEntradas($conection, $limit = null, $categoria = null)
 {
-    $sql= "SELECT e.*, c.nombre AS 'categoria' FROM entradas e
-        INNER JOIN categorias c ON e.categoria_id = c.id
-        ORDER BY e.id DESC";
+    $sql = "SELECT e.*, c.* FROM entradas e
+        INNER JOIN categorias c ON e.categoria_id = c.id";
+
+    if(!empty($categoria)){
+        $sql .= "WHERE e.categoria_id = $categoria ";
+    }
+
+    $sql .= "ORDER BY e.id DESC";
 
     if($limit){
-        $sql .="LIMIT 4";
+        $sql .="LIMIT 5";
     }
     $entradas = mysqli_query($conection, $sql);
 

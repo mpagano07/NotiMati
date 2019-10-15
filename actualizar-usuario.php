@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST)){
+if (isset($_POST)) {
 
     require_once 'includes/conection.php';
 
@@ -13,51 +13,60 @@ if (isset($_POST)){
     $errores = array();
 
     //valida los datos antes de guardarlos
-    if(!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)){
-       $nombre_valido = true;
-    }else{
+    if (!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)) {
+        $nombre_valido = true;
+    } else {
         $nombre_valido = false;
         $errores['nombre'] = "El nombre no es valido";
     }
 
-    if(!empty($apellido) && !is_numeric($apellido) && !preg_match("/[0-9]/", $apellido)){
+    if (!empty($apellido) && !is_numeric($apellido) && !preg_match("/[0-9]/", $apellido)) {
         $apellido_valido = true;
-     }else{
+    } else {
         $apellido_valido = false;
         $errores['apellido'] = "El apellido no es valido";
     }
 
-    if(!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)){
+    if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $email_valido = true;
-     }else{
+    } else {
         $email_valido = false;
         $errores['email'] = "El email no es valido";
     }
 
     $guardar_usuario = false;
     if (count($errores) == 0) {
-        $guardar_usuario = true;
-        
-        //Actualizar usuario en la base de datos
         $usuario = $_SESSION['usuario'];
-        $sql = "UPDATE usuarios SET".
-                "nombre = '$nombre', ".
-                "apellido = '$apellido', ".
-                "email = '$email', ".
-                "WHERE id = ".$usuario['id'];
-        $guardar = mysqli_query($db, $sql);
+        $guardar_usuario = true;
 
-        if ($guardar) {
-            $_SESSION['usuario']['nombre'] = $nombre;
-            $_SESSION['usuario']['apellido'] = $apellido;
-            $_SESSION['usuario']['email'] = $email;
-            
-            $_SESSION['completado'] = "Los datos se actualizaron con exito";
-        }else{
-            $_SESSION['errores']['general'] = "Fallo a guardar actualizar los datos";
+        //comprobar si el email ya existe
+        $sql = "SELECT id, email FROM usuarios WHERE email = '$email'";
+        $isset_email = mysqli_query($db, $sql);
+        $isset_user = mysqli_fetch_assoc($isset_email);
+
+        if ($isset_user['id'] == $usuario['id'] || empty($isset_user)) {
+            //Actualizar usuario en la base de datos
+
+            $sql = "UPDATE usuarios SET
+                nombre = '$nombre', 
+                apellido = '$apellido',
+                email = '$email' 
+                WHERE id = " . $usuario['id'];
+            $guardar = mysqli_query($db, $sql);
+
+            if ($guardar) {
+                $_SESSION['usuario']['nombre']   = $nombre;
+                $_SESSION['usuario']['apellido'] = $apellido;
+                $_SESSION['usuario']['email']    = $email;
+
+                $_SESSION['completado'] = "Los datos se actualizaron con exito";
+            } else {
+                $_SESSION['errores']['general'] = "Fallo al actualizar los datos";
+            }
+        } else {
+            $_SESSION['errores']['general'] = "El usuario ya existe";
         }
-
-    }else{
+    } else {
         $_SESSION['errores'] = $errores;
     }
 }

@@ -6,7 +6,7 @@ if(isset($_POST)){
 
     $titulo      = isset($_POST['titulo']) ? mysqli_real_escape_string($db, $_POST['titulo']) : false;
     $descripcion = isset($_POST['descripcion']) ? mysqli_real_escape_string($db, $_POST['descripcion']) : false;
-    $categoria   = isset($_POST['categorias']) ? (int)$_POST['categorias'] : false;
+    $categoria   = isset($_POST['categoria']) ? (int)$_POST['categoria'] : false;
     $usuario     = $_SESSION['usuario']['id'];
 
     // Array de errores
