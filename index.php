@@ -1,17 +1,14 @@
-<!--header-->
 <?php require_once 'includes/header.php'; ?>
+<?php require_once 'includes/block-aside.php'; ?>
+<?php require_once 'includes/conection.php'; ?>
 
-<!--barra lateral-->
-<?php include 'includes/block-aside.php'; ?>
-<?php include 'includes/conection.php'; ?>
-<!--caja principal-->
 <div id="principal">
 	<h1>Ultimas Noticias</h1>
 
 	<?php
 	$entradas = conseguirEntradas($db, true);
 	if (!empty($entradas)):
-		while ($entradas = mysql_fetch_assoc($entradas)):
+		while ($entrada = mysqli_fetch_assoc($entradas)):
 			?>
 			<article class="entrada">
 				<a href="">

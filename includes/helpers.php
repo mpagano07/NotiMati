@@ -44,6 +44,18 @@ function conseguirCategorias($conection)
     return $result;
 }
 
+function conseguirCategoria($conection, $id)
+{ 
+    $sql = "SELECT * FROM categorias WHERE  id = $id;";
+    $categorias = mysqli_query($conection, $sql);
+    $result = array();
+
+    if($categorias && mysqli_num_rows($categorias) >= 1){
+        $result = mysqli_fetch_assoc($categorias);
+    }
+    return $result;
+}
+
 function conseguirEntradas($conection, $limit = null)
 {
     $sql= "SELECT e.*, c.nombre AS 'categoria' FROM entradas e

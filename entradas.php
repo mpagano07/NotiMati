@@ -1,7 +1,4 @@
-<!--header-->
 <?php require_once 'includes/header.php'; ?>
-
-<!--barra lateral-->
 <?php include 'includes/block-aside.php'; ?>
 <?php include 'includes/conection.php'; ?>
 <!--caja principal-->
@@ -11,7 +8,7 @@
 	<?php
 	$entradas = conseguirEntradas($db);
 	if (!empty($entradas)):
-		while ($entradas = mysql_fetch_assoc($entradas)):
+		while ($entrada = mysqli_fetch_assoc($entradas)):
 			?>
 			<article class="entrada">
 				<a href="">
