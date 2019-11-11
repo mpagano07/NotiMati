@@ -59,8 +59,9 @@ function conseguirCategoria($conection, $id)
 
 function conseguirEntrada($conection, $id)
 { 
-    $sql = "SELECT e.*, c.nombre AS 'categoria' FROM entradas e 
+    $sql = "SELECT e.*, c.nombre AS 'categoria', CONCAT(u.nombre, ' ', u.apellido) AS usuario FROM entradas e 
             INNER JOIN categorias c ON e.categoria_id = c.id 
+            INNER JOIN usuarios u ON e.usuario_id = u.id 
             WHERE e.id = $id ";
     $entrada = mysqli_query($conection, $sql);
     $result = array();
@@ -73,17 +74,17 @@ function conseguirEntrada($conection, $id)
 
 function conseguirEntradas($conection, $limit = null, $categoria = null)
 {
-    $sql = "SELECT e.*, c.* FROM entradas e
-        INNER JOIN categorias c ON e.categoria_id = c.id";
+    $sql = " SELECT e.*, c.* FROM entradas e
+        INNER JOIN categorias c ON e.categoria_id = c.id ";
 
     if(!empty($categoria)){
-        $sql .= "WHERE e.categoria_id = $categoria ";
+        $sql .= " WHERE e.categoria_id = $categoria ";
     }
 
-    $sql .= "ORDER BY e.id DESC";
+    $sql .= " ORDER BY e.id DESC ";
 
     if($limit){
-        $sql .="LIMIT 5";
+        $sql .=" LIMIT 5 ";
     }
     $entradas = mysqli_query($conection, $sql);
 

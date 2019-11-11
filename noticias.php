@@ -40,7 +40,7 @@
     </form>
     <?php borrarError();?>
 	<div id=ver-todas>
-		<a href="">Ver todas las entradas</a>
+		<a href="">Ver todas las noticias</a>
 	</div>
 
 </div>
