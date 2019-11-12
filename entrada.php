@@ -22,10 +22,12 @@ if (!isset($entrada_actual['id'])) {
 		<?= $entrada_actual['descripcion'] ?>
 	</p>
 
-	<?php if(isset($_SESSION["usuario"]) && $_SESSION['usuario']['id'] == $entrada_actual['usuario_id']): ?>
+	<?php if(isset($_SESSION['usuario']['id']) == $entrada_actual['usuario_id']): ?>
 
-	 		<a href="editar-noticia.php" class="boton">Editar noticia</a>
-			<a href="eliminar-noticia.php" class="boton">Eliminar noticia</a>	
+		<br/>
+		<br/>
+	 		<a href="editar-noticia.php?id<?=$entrada_actual['id']?>" class="boton">Editar noticia</a>
+			<a href="eliminar-noticia.php?id<?=$entrada_actual['id']?>" class="boton">Eliminar noticia</a>	
 
 	<?php endif; ?>
 
