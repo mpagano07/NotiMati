@@ -12,7 +12,6 @@ if (!isset($entrada_actual['id'])) {
 <!--caja principal-->
 <div id="principal">
 
-
 	<h1><?= $entrada_actual['titulo'] ?></h1>
 
 	<a href="categoria.php?id=<?= $entrada_actual['categoria_id'] ?>">

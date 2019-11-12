@@ -23,7 +23,7 @@ if (!isset($categoria_actual['id'])) {
 			<article class="entrada">
 				<a href="entrada.php?id=<?=$entrada['id']?>">
 					<h2><?= $entrada['titulo'] ?></h2>
-					<span class="date"><?= $entrada['nombre'] . ' | ' . $entrada['fecha'] ?></span>
+					<span class="date"><?= $entrada['categoria'] . ' | ' . $entrada['fecha'] ?></span>
 					<p>
 						<?= substr($entrada['descripcion'], 0, 200) . "..." ?>
 					</p>

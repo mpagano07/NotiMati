@@ -74,7 +74,7 @@ function conseguirEntrada($conection, $id)
 
 function conseguirEntradas($conection, $limit = null, $categoria = null)
 {
-    $sql = " SELECT e.*, c.* FROM entradas e
+    $sql = "SELECT e.*, c.nombre AS 'categoria' FROM entradas e
         INNER JOIN categorias c ON e.categoria_id = c.id ";
 
     if(!empty($categoria)){
