@@ -3,9 +3,19 @@
 <!--barra lateral-->
 <aside id="sidebar">
 
+	<div id="buscador" class="block-aside">
+		<h3>Buscar</h3>
+
+		<form action="buscar.php" method="POST">			
+			<input type="text" name="busqueda" />
+			<input type="submit" value="Buscar" />
+
+		</form>
+	</div>
+
 	<?php if (isset($_SESSION['usuario'])) : ?>
 		<div id="usuario-logueado" class="block-aside">
-			<h3>Bienvenido, <?= $_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellido'];?></h3>
+			<h3>Bienvenido, <?= $_SESSION['usuario']['nombre'] . ' ' . $_SESSION['usuario']['apellido']; ?></h3>
 			<a href="noticias.php" class="boton">Agregar noticia</a>
 			<a href="crear-categoria.php" class="boton">Crear categoria</a>
 			<a href="datos.php" class="boton">Mis Datos</a>
@@ -19,7 +29,7 @@
 
 			<?php if (isset($_SESSION['error_login'])) : ?>
 				<div class="alerta alerta-error">
-					<?=$_SESSION['error_login']?>
+					<?= $_SESSION['error_login'] ?>
 				</div>
 			<?php endif; ?>
 
@@ -39,11 +49,11 @@
 
 			<?php if (isset($_SESSION['completado'])) : ?>
 				<div class="alerta alerta-exito">
-					<?=$_SESSION['completado']?>
+					<?= $_SESSION['completado'] ?>
 				</div>
 			<?php elseif (isset($_SESSION['errores']['general'])) : ?>
 				<div class="alerta alerta-exito">
-					<?=$_SESSION['errores']['general']?>
+					<?= $_SESSION['errores']['general'] ?>
 				</div>
 			<?php endif; ?>
 

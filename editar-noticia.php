@@ -1,13 +1,13 @@
-<?php require_once 'includes/redirect.php'; ?>
-<?php require_once 'includes/header.php'; ?>
-<?php require_once 'includes/block-aside.php'; ?>
-<?php require_once 'includes/conection.php'; ?>
-<?php require_once 'includes/helpers.php'; ?>
-
 <?php
+require_once 'includes/redirect.php';
+require_once 'includes/conection.php';
+require_once 'includes/helpers.php';
+require_once 'includes/header.php';
+require_once 'includes/block-aside.php';
+
 $entrada_actual = conseguirEntrada($db, $_GET['id']);
 if (!isset($entrada_actual['id'])) {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 ?>
 
@@ -15,16 +15,16 @@ if (!isset($entrada_actual['id'])) {
 <div id="principal">
     <h1>Editar Noticia</h1>
     <p>
-        Edita tu entrada <?=$entrada_actual['titulo']?>
+        Edita tu entrada: <?=$entrada_actual['titulo']?>
     </p>
     <br>
-    <form action="guardar-noticia.php" method="POST">
+    <form action="guardar-noticia.php?editar=<?=$entrada_actual['id']?>" method="POST">
         <label for="titulo">Titulo:</label>
-        <input type="text" name="titulo" />
+        <input type="text" name="titulo" value="<?=$entrada_actual['titulo']?>"/>
         <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'titulo') : ''; ?>
         
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion"></textarea>
+        <textarea name="descripcion"><?=$entrada_actual['descripcion']?></textarea>
         <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'descripcion') : ''; ?>
         
         <label for="categoria">Categoria</label>
@@ -35,7 +35,7 @@ if (!isset($entrada_actual['id'])) {
                 if(!empty($categorias)):
                     while($categoria = mysqli_fetch_assoc($categorias)):
             ?>
-            <option value="<?=$categoria['id']?>">
+            <option value="<?=$categoria['id']?>" <?=($categoria['id'] == $entrada_actual['categoria_id']) ? 'selected="selected"' : '' ?>>
                 <?=$categoria['nombre']?>
             </option>
             <?php
