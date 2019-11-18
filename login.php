@@ -2,6 +2,7 @@
 
 require_once 'includes/conection.php';
 
+
 // datos del formulario
 if (isset($_POST)) {
 
@@ -10,7 +11,7 @@ if (isset($_POST)) {
         session_unset($_SESSION['error_login']);
     }
     
-    $email    = trim($_POST['email']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
 

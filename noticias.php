@@ -1,25 +1,28 @@
 <?php require_once 'includes/redirect.php'; ?>
+<div class="container">
+<div class="row">
 <?php require_once 'includes/header.php'; ?>
-<?php require_once 'includes/block-aside.php'; ?>
-
-<!--caja principal-->
-<div id="principal">
-    <h1>Crear Noticia</h1>
-    <p>
+</div>
+<div class="row">
+<div id="principal" class="col-xl-9 mt-2">
+<div class="card shadow-sm overflow-auto">
+	<div class="card-body">
+    <h1 class="card-title text-center">Crear Noticia</h1>
+    <p class="text-muted">
         Agrega nuevas noticias al blog 
     </p>
     <br>
-    <form action="guardar-noticia.php" method="POST">
+    <form class="form-group"action="guardar-noticia.php" method="POST">
         <label for="titulo">Titulo:</label>
-        <input type="text" name="titulo" />
+        <input class="form-control" type="text" name="titulo" />
         <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'titulo') : ''; ?>
         
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion"></textarea>
+        <textarea class="form-control" name="descripcion"></textarea>
         <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'descripcion') : ''; ?>
         
         <label for="categoria">Categoria</label>
-        <select name="categoria">
+        <select class="form-control" name="categoria">
                 <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'categoria') : ''; ?>
             <?php
                 $categorias = conseguirCategorias($db);
@@ -36,14 +39,17 @@
         </select>
         <?php echo isset($_SESSION['errores_noticias']) ? mostrarError($_SESSION['errores_noticias'], 'categorias') : ''; ?>
 
-        <input type="submit" value="Guardar" />
+        <input class="btn btn-primary w-100 mt-3" type="submit" value="Guardar" />
     </form>
     <?php borrarError();?>
-	<div id=ver-todas>
-		<a href="">Ver todas las noticias</a>
-	</div>
 
 </div>
-
+</div>
+</div>
+<?php require_once 'includes/block-aside.php'; ?>
+</div>
+<div class="row">
 <!--pie de pagina-->
 <?php require_once 'includes/footer.php'; ?>
+</div>
+</div>

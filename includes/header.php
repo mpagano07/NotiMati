@@ -6,39 +6,40 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Altos noticias</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Altas noticias</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
     <!--CABECERA-->
-    <header id="header">
+    <header id="header" class="w-100">
         <!--LOGO-->
         <div id="logo">
-            <a href="index.pgp">
+            <a href="index.php">
                 <h1>Noticias</h1>
             </a>
         </div>
 
         <!--MENU-->
-        <nav id="nav">
-            <ul>
-                <li>
-                    <a href="index.php">Inicio</a>
+        <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php">Inicio</a>
                 </li>
                 <?php
                 $categorias = conseguirCategorias($db);
                 if (!empty($categorias)) :
                     while ($categoria = mysqli_fetch_assoc($categorias)) :
                         ?>
-                        <li>
-                            <a href="categoria.php?id=<?=$categoria['id']?>"><?=$categoria['nombre']?></a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="categoria.php?id=<?= $categoria['id'] ?>"><?= $categoria['nombre'] ?></a>
                         </li>
                 <?php
                     endwhile;
-                    endif;
+                endif;
                 ?>
             </ul>
         </nav>
     </header>
-    <div id="container">

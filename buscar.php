@@ -1,5 +1,3 @@
-<?php require_once 'includes/header.php'; ?>
-<?php require_once 'includes/block-aside.php'; ?>
 <?php require_once 'includes/conection.php'; ?>
 <?php require_once 'includes/helpers.php'; ?>
 
@@ -8,10 +6,15 @@ if (!isset($_POST['busqueda'])) {
     header("Location: index.php");
 }
 ?>
-<!--caja principal-->
-<div id="principal">
-
-    <h1>Busqueda: <?= $_POST['busqueda'] ?></h1>
+<div class="container">
+<div class="row">
+<?php require_once 'includes/header.php'; ?>
+</div>
+<div class="row">
+<div id="principal" class="col-xl-9 mt-2">
+	<div class="card shadow-sm overflow-auto">
+	<div class="card-body">
+    <h1 class="card-title">Busqueda: <?= $_POST['busqueda'] ?></h1>
 
     <?php
     $entradas = conseguirEntradas($db, null, null, $_POST['busqueda']);
@@ -36,6 +39,12 @@ if (!isset($_POST['busqueda'])) {
     <?php endif; ?>
 
 </div>
-
+</div>
+</div>
+<?php require_once 'includes/block-aside.php'; ?>
+</div>
+<div class="row">
 <!--pie de pagina-->
 <?php require_once 'includes/footer.php'; ?>
+</div>
+</div>
