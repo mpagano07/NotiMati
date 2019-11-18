@@ -6,7 +6,6 @@
 
 	<div id="buscador" class="card shadow m-2">
 		<div class="card-body">
-			<h3 class="card-title text-center">Buscar</h3>
 			<form class="form-group" action="buscar.php" method="POST">
 				<input class="form-control" type="text" name="busqueda" />
 				<input class="btn btn-primary w-100 mt-2" type="submit" value="Buscar" />
