@@ -2,7 +2,7 @@
 
 $server = "localhost";
 $username = "root";
-$password = "root";
+$password = "Entrar";
 $db = mysqli_connect($server, $username, $password);
 
 mysqli_query($db, "SET NAMES 'uft8'");

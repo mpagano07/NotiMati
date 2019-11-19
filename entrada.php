@@ -22,6 +22,7 @@ if (!isset($entrada_actual['id'])) {
 						<h2 class="badge badge-primary"><?= $entrada_actual['categoria'] ?></h2>
 					</a>
 					<h4><?= $entrada_actual['fecha'] ?> | <?= $entrada_actual['usuario'] ?></h4>
+					<hr />
 					<p>
 						<?= $entrada_actual['descripcion'] ?>
 					</p>
@@ -36,12 +37,9 @@ if (!isset($entrada_actual['id'])) {
 					<?php endif; ?>
 
 				</div>
+				<?php require_once 'includes/footer.php'; ?>
 			</div>
 		</div>
 		<?php require_once 'includes/block-aside.php'; ?>
-	</div>
-	<div class="row">
-		<!--pie de pagina-->
-		<?php require_once 'includes/footer.php'; ?>
 	</div>
 </div>

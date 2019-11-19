@@ -1,6 +1,6 @@
 <?php
 
-if(isset($_POST)){
+if (isset($_POST)) {
 
     require_once 'includes/conection.php';
 
@@ -10,17 +10,17 @@ if(isset($_POST)){
     $errores = array();
 
     //valida los datos antes de guardarlos
-    if(!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)){
-       $nombre_valido = true;
-    }else{
+    if (!empty($nombre) && !is_numeric($nombre) && !preg_match("/[0-9]/", $nombre)) {
+        $nombre_valido = true;
+    } else {
         $nombre_valido = false;
         $errores['nombre'] = "El nombre no es valido";
     }
-    
-    if (count($errores) == 0)  {
+
+    if (count($errores) == 0) {
         $sql     = "INSERT INTO categorias  VALUES(NULL,'$nombre');";
         $guardar = mysqli_query($db, $sql);
     }
 }
 
-header ("Location: index.php");
+header("Location: index.php");
