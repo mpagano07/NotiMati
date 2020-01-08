@@ -7,7 +7,7 @@
 		<div id="buscador" class="card shadow m-2">
 			<div class="card-body">
 				<div class="input-group">
-					<form class="m-0" action="buscar.php" method="POST">
+					<form class="m-0" action="index.php?categoria=buscar_noticias" method="POST">
 						<div class="input-group-append">
 							<input class="form-control" type="text" name="busqueda" />
 							<button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
@@ -27,16 +27,17 @@
 				<h3>Bienvenido, <?= $_SESSION['usuario']['nombre'] . ' ' . $_SESSION['usuario']['apellido']; ?></h3>
 				<h5>Posteos: <?= contarEntradasUsuario($db, $_SESSION['usuario']["id"]) ?></h5>
 				<div class="list-group">
-					<a class="btn btn-primary w-100 mt-2" href="noticias.php">Agregar noticia</a>
-					<a class="btn btn-primary w-100 mt-2" href="crear-categoria.php">Crear categoria</a>
-					<a class="btn btn-primary w-100 mt-2" href="datos.php">Mis Datos</a>
-					<a class="btn btn-primary w-100 mt-2" href="close.php">Cerrar sesion</a>
+				<?php if($_SESSION['usuario']['rol'] === 'admin'){ ?> <a class="btn btn-success w-100 mt-2" href="./index.php?categoria=admin_usuarios">Panel Administrador</a> <?php } ?>
+					<a class="btn btn-primary w-100 mt-2" href="index.php?categoria=agregar_noticia">Agregar noticia</a>
+					<a class="btn btn-primary w-100 mt-2" href="index.php?categoria=agregar_categoria">Crear categoria</a>
+					<a class="btn btn-primary w-100 mt-2" href="index.php?categoria=modificar_datos">Mis Datos</a>
+					<a class="btn btn-primary w-100 mt-2" href="./actions/cerrar_sesion.php">Cerrar sesion</a>
 				</div>
 			</div>
 		</div>
 	<?php endif; ?>
 
-	<?php if (!isset($_SESSION['usuario'])) : ?>
+	<?php if (!isset($_SESSION['usuario']) && (!isset($_GET['showRegister']))) : ?>
 		<div id="login" class="card shadow m-2" style="display:block">
 			<div class="card-body">
 				<h3 class="card-title text-center">Identificación</h3>
@@ -47,7 +48,7 @@
 					</div>
 				<?php endif; ?>
 
-				<form class="form-group" action="login.php" method="POST">
+				<form class="form-group" action="actions/iniciar_sesion.php" method="POST">
 					<label for="email">Email</label>
 					<input class="form-control" type="email" name="email" autocomplete="email" />
 
@@ -56,11 +57,13 @@
 
 					<input class="btn btn-primary w-100 mt-2" type="submit" value="Entrar" />
 				</form>
-				<input id="registro" name="registrar" class="btn btn-primary w-100 mt-2" type="button" onclick="registrar();" value="Registrar" />
+				<a class="btn btn-outline-primary w-100" href="index.php?showRegister=1">Registrarse</a>
 			</div>
 		</div>
+		<?php endif; ?>
 
-		<div id="register" class="card shadow m-2" style="display:none">
+	<?php if (!isset($_SESSION['usuario']) && (isset($_GET['showRegister']))) : ?>
+		<div id="register" class="card shadow m-2">
 			<div class="card-body">
 				<h3 class="card-title text-center">Registro</h3>
 
@@ -69,12 +72,12 @@
 						<?= $_SESSION['completado'] ?>
 					</div>
 				<?php elseif (isset($_SESSION['errores']['general'])) : ?>
-					<div class="alert alert-success">
+					<div class="alert alert-danger">
 						<?= $_SESSION['errores']['general'] ?>
 					</div>
 				<?php endif; ?>
 
-				<form class="form-group" action="register.php" method="POST">
+				<form class="form-group" action="actions/registrar_usuario.php" method="POST">
 					<label for="nombre">Nombre</label>
 					<input class="form-control" type="text" name="nombre" autocomplete="given-name" />
 					<?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'nombre') : ''; ?>
@@ -93,7 +96,7 @@
 
 					<input id="registro" name="registrar" class="btn btn-primary w-100 mt-2" type="submit" name="submit" value="Registrar" />
 				</form>
-				<input id="registro" name="registrar" class="btn btn-primary w-100 mt-2" type="button" onclick="volver();" value="Volver" />
+				<a class="btn btn-outline-primary w-100" href="index.php">Volver</a>
 				<?php borrarError() ?>
 			</div>
 		</div>

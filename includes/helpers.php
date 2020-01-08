@@ -5,7 +5,7 @@ function mostrarError($errores, $campo)
 {
     $alerta = '';
     if (isset($errores[$campo]) && !empty($campo)) {
-        $alerta = "<div class='alerta alerta-error'>" . $errores[$campo] . '</div>';
+        $alerta = "<div class='alert alert-danger p-0'>" . $errores[$campo] . '</div>';
     }
 
     return $alerta;
@@ -134,4 +134,19 @@ function conseguirEntradasUsuario($conection, $usuario_id)
         $result = $entradas;
     }
     return $entradas;
+}
+
+function conseguirUsuarios($conection)
+{
+    $sql = "SELECT * FROM usuarios";
+
+    $sql .= " ORDER BY id DESC ";
+
+    $usuarios = mysqli_query($conection, $sql);
+
+    if ($usuarios && mysqli_num_rows($usuarios) >= 1) {
+        $result = $usuarios;
+    }
+
+    return $usuarios;
 }

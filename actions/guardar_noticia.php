@@ -1,9 +1,6 @@
 <?php
-
 if (isset($_POST)) {
-
-    require_once 'includes/conection.php';
-
+    require_once '../includes/conection.php';
     $titulo      = isset($_POST['titulo']) ? mysqli_real_escape_string($db, $_POST['titulo']) : false;
     $descripcion = isset($_POST['descripcion']) ? mysqli_real_escape_string($db, $_POST['descripcion']) : false;
     $categoria   = isset($_POST['categoria']) ? (int) $_POST['categoria'] : false;
@@ -37,17 +34,20 @@ if (isset($_POST)) {
 
             $sql = " INSERT INTO entradas  VALUES(null, $usuario, $categoria, '$titulo', '$descripcion', CURDATE());";
         }
+
         $guardar = mysqli_query($db, $sql);
-
-        header("Location: index.php");
-    } else {
-        $_SESSION["errores_noticias"] = $errores;
-
-        if (isset($_GET['editar'])) {
-
-            header("Location: editar-noticia.php?id=" . $_GET['editar']);
+        if(!isset($_GET['editar']) && $guardar){
+            $result = mysqli_query($db, "SELECT LAST_INSERT_ID();");
+            $result_array = mysqli_fetch_assoc($result);
+            $id = $result_array["LAST_INSERT_ID()"];
+            header("Location: ../index.php?categoria=ver_noticia&id=$id"); 
+        }
+        if(isset($_GET['editar']) && $guardar){
+            header("Location: ../index.php?categoria=ver_noticia&id=" . $_GET['editar']);
         }
 
-        header("Location: noticias.php");
+    } else {
+        //aca no llega nunca
+        $_SESSION["errores_noticias"] = $errores;
     }
 }

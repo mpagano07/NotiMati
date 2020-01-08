@@ -1,18 +1,5 @@
 <?php require_once 'conection.php'; ?>
 <?php require_once 'includes/helpers.php'; ?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Altas noticias</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-</head>
-
-<body>
     <!--CABECERA-->
     <header id="header">
         <!--LOGO-->
@@ -37,7 +24,7 @@
                     while ($categoria = mysqli_fetch_assoc($categorias)) :
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="categoria.php?id=<?= $categoria['id'] ?>"><?= $categoria['nombre'] ?></a>
+                            <a class="nav-link" href="index.php?categoria=ver_categoria&id=<?= $categoria['id'] ?>"><?= $categoria['nombre'] ?></a>
                         </li>
                 <?php
                     endwhile;

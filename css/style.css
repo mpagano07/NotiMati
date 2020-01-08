@@ -65,7 +65,7 @@ body {
     height: 70vh;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1367px) {
   html,body{
     overflow: hidden;
   }

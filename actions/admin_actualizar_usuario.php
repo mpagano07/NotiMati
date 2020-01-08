@@ -1,18 +1,13 @@
 <?php
-
 if (isset($_POST)) {
-
-    require_once 'includes/conection.php';
-
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+    require_once '../includes/conection.php';
+    require_once '../includes/helpers.php';
 
     //valores del formulario 
+    $id = isset($_POST['id']) ? mysqli_real_escape_string($db, trim($_POST['id'])) : false;
     $nombre   = isset($_POST['nombre']) ? mysqli_real_escape_string($db, $_POST['nombre']) : false;
     $apellido = isset($_POST['apellido']) ? mysqli_real_escape_string($db, $_POST['apellido']) : false;
     $email    = isset($_POST['email']) ? mysqli_real_escape_string($db, trim($_POST['email'])) : false;
-    $password = isset($_POST['password']) ? mysqli_real_escape_string($db, $_POST['password']) : false;
 
     // Array de errores
     $errores = array();
@@ -39,33 +34,25 @@ if (isset($_POST)) {
         $errores['email'] = "El email no es valido";
     }
 
-    if (!empty($password)) {
-        $password_valido = true;
-    } else {
-        $password_valido = false;
-        $errores['password'] = "El password esta vacio";
-    }
-
     $guardar_usuario = false;
     if (count($errores) == 0) {
         $guardar_usuario = true;
 
-        // Cifrado de contraseña
-        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
-
-        //inserta el usuario en la base de datos
-        $sql = "INSERT INTO usuarios VALUES(null, '$nombre', '$apellido', '$email', '$hash', CURDATE());";
+        $sql = "UPDATE usuarios SET
+                nombre = '$nombre', 
+                apellido = '$apellido',
+                email = '$email' 
+                WHERE id = '$id'";
         $guardar = mysqli_query($db, $sql);
 
         if ($guardar) {
-            $_SESSION['completado'] = "El registro se completo con exito";
+            $_SESSION['completado'] = "Los datos se actualizaron con exito";
         } else {
-            $_SESSION['errores']['general'] = "Fallo a guardar el usuario";
+            $_SESSION['errores']['general'] = "Fallo al actualizar los datos";
         }
     } else {
         $_SESSION['errores'] = $errores;
-        header('Location: index.php');
     }
 }
 
-header('Location: index.php');
+header('Location: ../index.php?categoria=admin_usuarios');

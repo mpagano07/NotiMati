@@ -1,8 +1,6 @@
 <?php
 
-require_once 'includes/conection.php';
-
-
+require_once '../includes/conection.php';
 // datos del formulario
 if (isset($_POST)) {
 
@@ -39,4 +37,4 @@ if (isset($_POST)) {
 }
 
 //Redirigir al index
-header('Location: index.php');
+header('Location: ../index.php');

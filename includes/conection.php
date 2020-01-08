@@ -1,6 +1,6 @@
 <?php
 
-$server = "localhost";
+$server   = "localhost";
 $username = "root";
 $password = "Entrar";
 $db = mysqli_connect($server, $username, $password);
@@ -15,6 +15,10 @@ if (!$db) {
 $db_selected = mysqli_select_db($db, 'blog_noticias');
 
 if (!$db_selected) {
+  session_start();
+  unset($_SESSION["usuario"]); 
+  session_destroy();
+  header("Location: index.php");
   // If we couldn't, then it either doesn't exist, or we can't see it.
   $sql_db = 'CREATE DATABASE blog_noticias';
 
@@ -26,9 +30,10 @@ if (!$db_selected) {
       `id` int(255) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
       `nombre` varchar(255) COLLATE armscii8_bin NOT NULL,
       `apellido` varchar(255) COLLATE armscii8_bin NOT NULL,
-      `email` varchar(255) COLLATE armscii8_bin NOT NULL,
+      `email` varchar(255) COLLATE armscii8_bin NOT NULL UNIQUE,
       `password` varchar(255) COLLATE armscii8_bin NOT NULL,
-      `fecha` date NOT NULL
+      `fecha` date NOT NULL,
+      `rol` varchar(255) COLLATE armscii8_bin
     ) ENGINE=InnoDB;';
 
     $sql_entradas = 'CREATE TABLE IF NOT EXISTS `entradas` (
@@ -36,7 +41,7 @@ if (!$db_selected) {
       `usuario_id` int(255) NOT NULL,
       `categoria_id` int(255) NOT NULL,
       `titulo` varchar(255) COLLATE armscii8_bin NOT NULL,
-      `descripcion` varchar(255) COLLATE armscii8_bin NOT NULL,
+      `descripcion` varchar(8000) COLLATE armscii8_bin NOT NULL,
       `fecha` date NOT NULL
     ) ENGINE=InnoDB;';
     $sql_categorias = 'CREATE TABLE IF NOT EXISTS `categorias` (
